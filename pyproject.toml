@@ -1,0 +1,59 @@
+[project]
+name = "wagtail-show-hidden-characters"
+version = "0.1.0"
+description = ""
+keywords = ["wagtail", "draftail", "invisible", "characters"]
+license = "BSD-3-Clause"
+readme = "README.md"
+authors = [
+    { name = "Coen van der Kamp", email = "coen@fourdigits.nl" }
+]
+requires-python = ">=3.10"
+dependencies = [
+  "wagtail",
+]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Web Environment",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Framework :: Django",
+  "Framework :: Django :: 5.2",
+  "Framework :: Django :: 6.0",
+  "Framework :: Wagtail",
+  "Topic :: Internet :: WWW/HTTP :: Site Management",
+]
+
+[project.optional-dependencies]
+test = [
+  "Pillow",
+  "pytest",
+  "pytest-django",
+]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "tests.test_project.settings"
+pythonpath = [
+  "src",
+  ".",
+]
+testpaths = [
+  "tests",
+]
+
+[project.urls]
+Documentation = "https://github.com/allcaps/wagtailshow-hidden-characters/"
+Changelog = "https://github.com/allcaps/wagtail-show-hidden-characters/blob/main/CHANGELOG.md"
+Issues = "https://github.com/allcaps/wagtail-show-hidden-characters/issues"
+Source = "https://github.com/allcaps/wagtail-show-hidden-characters"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
