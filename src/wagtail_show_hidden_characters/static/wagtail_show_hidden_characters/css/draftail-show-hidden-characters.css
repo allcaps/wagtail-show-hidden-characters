@@ -3,12 +3,12 @@
 }
 
 .w-theme-dark {
-  --show-hidden-character-color: #006fff;
+  --show-hidden-character-color: #1a7dff;
 }
 
 @media (prefers-color-scheme: dark) {
   .w-theme-system {
-    --show-hidden-character-color: #006fff;
+    --show-hidden-character-color: #1a7dff;
   }
 }
 
@@ -25,8 +25,6 @@
 .show-hidden-character::after {
   color: var(--show-hidden-character-color);
   content: attr(data-hidden-character);
-  font-family: var(--w-font-mono, monospace);
-  font-size: 0.82em;
   font-weight: 500;
   left: 50%;
   line-height: 1;
@@ -47,23 +45,12 @@
   min-width: 0.45em;
 }
 
-.show-hidden-character--space::after {
-  top: 60%;
-}
-
 .show-hidden-character--nbsp::after {
-  top: 76%;
-}
-
-.show-hidden-character--soft-hyphen::after,
-.show-hidden-character--line-break::after {
-  left: 0;
-  transform: translateY(-50%);
+  transform: translate(-50%, -23%);
 }
 
 .show-hidden-character--line-break::after {
   font-size: 1em;
-  top: 20%;
 }
 
 .show-hidden-characters-enabled .Draftail-Editor .public-DraftStyleDefault-block::after {
@@ -78,20 +65,20 @@
   user-select: none;
 }
 
-.show-hidden-characters-enabled .Draftail-Editor .Draftail-block--header-one .public-DraftStyleDefault-block::after {
-  content: "h1";
-}
-
 .show-hidden-characters-enabled .Draftail-Editor .Draftail-block--header-one .public-DraftStyleDefault-block::after,
 .show-hidden-characters-enabled .Draftail-Editor .Draftail-block--header-two .public-DraftStyleDefault-block::after,
 .show-hidden-characters-enabled .Draftail-Editor .Draftail-block--header-three .public-DraftStyleDefault-block::after,
 .show-hidden-characters-enabled .Draftail-Editor .Draftail-block--header-four .public-DraftStyleDefault-block::after,
 .show-hidden-characters-enabled .Draftail-Editor .Draftail-block--header-five .public-DraftStyleDefault-block::after,
 .show-hidden-characters-enabled .Draftail-Editor .Draftail-block--header-six .public-DraftStyleDefault-block::after {
-  bottom: 0.16em;
+  bottom: 0.10em;
   font-size: 0.55em;
   margin-left: 0.3em;
   position: relative;
+}
+
+.show-hidden-characters-enabled .Draftail-Editor .Draftail-block--header-one .public-DraftStyleDefault-block::after {
+  content: "H1";
 }
 
 .show-hidden-characters-enabled .Draftail-Editor .Draftail-block--header-two .public-DraftStyleDefault-block::after {
