@@ -1,8 +1,7 @@
 from django.core.management.base import BaseCommand
-
-from tests.test_project.demo_app.models import HomePage
 from wagtail.models import Page, Site
 
+from tests.test_project.demo_app.models import HomePage
 
 HOME_BODY = """<h2>Hidden characters 👀</h2>
 <p>This line has normal spaces between words.</p>

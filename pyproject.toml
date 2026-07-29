@@ -33,19 +33,67 @@ classifiers = [
 
 [project.optional-dependencies]
 test = [
+  "djlint",
   "Pillow",
   "pytest",
   "pytest-django",
+  "ruff",
 ]
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "tests.test_project.settings"
+addopts = [
+  "-ra",
+]
 pythonpath = [
   "src",
   ".",
 ]
 testpaths = [
   "tests",
+]
+
+[tool.djlint]
+profile = "django"
+blank_line_after_tag = "load,extends,include,endblock"
+indent = 2
+extend_exclude = ".venv,.pytest_cache,.ruff_cache,build,dist,htmlcov"
+
+[tool.ruff]
+line-length = 88
+src = [
+  "src",
+  "tests",
+]
+exclude = [
+  ".venv",
+]
+
+[tool.ruff.lint]
+extend-select = [
+  "I",
+  "T10",
+  "DJ",
+  "ERA",
+  "C90",
+  "S",
+  "N",
+]
+
+[tool.ruff.lint.isort]
+known-first-party = [
+  "wagtail_show_hidden_characters",
+]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 6
+
+[tool.ruff.lint.per-file-ignores]
+"*/test_*.py" = [
+  "S101",
+]
+"tests/conftest.py" = [
+  "S101",
 ]
 
 [project.urls]

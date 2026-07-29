@@ -1,7 +1,6 @@
 from wagtail import hooks
 from wagtail.admin.rich_text.editors.draftail.features import ControlFeature, Feature
 
-
 DRAFTAIL_SHOW_HIDDEN_CHARACTERS_JS = (
     "wagtail_show_hidden_characters/js/draftail-show-hidden-characters.js"
 )
@@ -12,9 +11,7 @@ DRAFTAIL_SHOW_HIDDEN_CHARACTERS_CSS = (
 
 class ShowHiddenCharactersFeature(Feature):
     def construct_options(self, options):
-        options.setdefault("decorators", []).append(
-            {"type": "show-hidden-characters"}
-        )
+        options.setdefault("decorators", []).append({"type": "show-hidden-characters"})
         ControlFeature(
             {
                 "type": "show-hidden-characters-toggle",

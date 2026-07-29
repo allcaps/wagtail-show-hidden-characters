@@ -5,7 +5,7 @@ invisible text characters in Wagtail rich text fields.
 
 It provides three independent rich text features:
 
-- `show-hidden-chars`, a button that shows/hides hidden characters in the editor.
+- `show-hidden-chars`, a button that shows/hides the hidden characters in the editor.
 - `insert-non-breaking-space`, a button for inserting a non-breaking space.
 - `insert-soft-hyphen`, a button for inserting a soft hyphen.
 
@@ -122,11 +122,7 @@ Draftail keeps its native cursor behavior and browser spellcheck still sees
 words containing soft hyphens as single words.
 
 The soft hyphen character is zero width, but the soft hyphen icon does occupy
-space. This leads to strange cursor behaviour where the cursor position does
-not go behind the icon.
-
-For more detail on Wagtail Draftail extensions, see the official Wagtail docs:
-https://docs.wagtail.org/en/stable/extending/extending_draftail.html
+space. The cursor position around the soft hyphen feels counterintuitive.
 
 ## Development and testing
 
@@ -166,7 +162,7 @@ Update the project version in `pyproject.toml`.
 ```shell
 git add pyproject.toml
 git commit -m "Release 0.1.1"
-git tag -a v0.1.1 -m v0.1.1
+git tag v0.1.1
 git push
 git push origin v0.1.1
 ```

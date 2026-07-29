@@ -2,7 +2,7 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
 
-SECRET_KEY = "wagtail-exact-crop-test-key"
+SECRET_KEY = "wagtail-exact-crop-test-key"  # noqa S105
 DEBUG = True
 ALLOWED_HOSTS = ["*"]
 ROOT_URLCONF = "tests.test_project.urls"
