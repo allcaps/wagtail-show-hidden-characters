@@ -29,14 +29,11 @@ jobs:
         with:
           python-version: "3.14"
 
-      - name: Run Django checks
-        run: uv run --extra test python tests/test_project/manage.py check
+      - name: Install test dependencies
+        run: make install PYTHON_VERSION=3.14
 
-      - name: Check test project migrations
-        run: uv run --extra test python tests/test_project/manage.py makemigrations --check --dry-run
-
-      - name: Run pytest
-        run: uv run --extra test pytest -q
+      - name: Run checks and tests
+        run: make test
 
       - name: Build package
         run: uv build --no-sources

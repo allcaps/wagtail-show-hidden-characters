@@ -1,42 +1,36 @@
 # Wagtail Show Hidden Characters
 
-Wagtail _Show Hidden Characters_ adds Draftail toolbar controls for working with 
-invisible text characters in Wagtail rich text fields.
+Wagtail *Show Hidden Characters* adds Draftail toolbar controls for displaying
+invisible characters and structural markers in Wagtail rich text fields.
 
-It provides three independent rich text features:
+It helps editors identify regular spaces, non-breaking spaces, soft hyphens,
+line breaks, paragraph boundaries, heading levels, and empty trailing
+paragraphs.
 
-- `show-hidden-chars`, a button that shows/hides the hidden characters in the editor.
-- `insert-non-breaking-space`, a button for inserting a non-breaking space.
-- `insert-soft-hyphen`, a button for inserting a soft hyphen.
+It provides three independently configurable rich text features:
 
-Show Hidden Characters switched _on_ reveals:
-
-- Heading levels `H1, H2, ...`
-- Paragraphs `¶`
-- Line-breaks `↵`
-- Text end `#`
-- Space `·`
-- Non-breaking space `°`
-- Soft-hyphen (also known as syllable hyphen, or discretionary hyphen ) `¬`
+* `show-hidden-chars`, a button that shows or hides hidden characters and
+  structural markers in the editor.
+* `insert-non-breaking-space`, a button that inserts a non-breaking space.
+* `insert-soft-hyphen`, a button that inserts a soft hyphen.
 
 ## Installation
 
-Install with pip:
+Install the package with pip:
 
-```bash
+```shell
 pip install wagtail-show-hidden-characters
 ```
 
-Add `wagtail_show_hidden_characters` to `INSTALLED_APPS`.
+Add `wagtail_show_hidden_characters` to `INSTALLED_APPS`:
 
 ```python
 INSTALLED_APPS = [
-    # ...
     "wagtail_show_hidden_characters",
 ]
 ```
 
-Include the features on RichTextField explicitly:
+Enable the features on a `RichTextField`:
 
 ```python
 from wagtail.fields import RichTextField
@@ -57,7 +51,8 @@ body = RichTextField(
 )
 ```
 
-You can also enable the features through `WAGTAILADMIN_RICH_TEXT_EDITORS`:
+You can also enable the features through
+`WAGTAILADMIN_RICH_TEXT_EDITORS`:
 
 ```python
 WAGTAILADMIN_RICH_TEXT_EDITORS = {
@@ -66,7 +61,7 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
         "OPTIONS": {
             "features": [
                 "h2",
-                "h3",                
+                "h3",
                 "bold",
                 "italic",
                 "link",
@@ -79,26 +74,36 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
 }
 ```
 
-## Supported characters
+## Supported characters and shortcuts
 
-The visibility feature displays these characters:
+- Press `Control + Option + I` on macOS to toggle hidden-character visibility.  
+- Press `Ctrl + Alt + I` on Windows and Linux.
 
-| Character | Unicode | Display marker |
-| --- | --- | --- |
-| Space | `U+0020` | `·` |
-| Non-breaking space | `U+00A0` | `°` |
-| Soft hyphen | `U+00AD` | `¬` |
-| Line break | `U+000A` | `↵` |
+The visibility feature displays the following invisible characters:
 
+| Character          | Unicode  | Marker | macOS input      | Windows input   | Linux input                              |
+| ------------------ | -------- | ------ | ---------------- | --------------- | ---------------------------------------- |
+| Space              | `U+0020` | `·`    | `Space`          | `Space`         | `Space`                                  |
+| Non-breaking space | `U+00A0` | `°`    | `Option + Space` | `Alt + 0160`    | `Ctrl + Shift + U`, `00A0`, then `Enter` |
+| Soft hyphen        | `U+00AD` | `¬`    | n/a              | `Alt + 0173`    | `Ctrl + Shift + U`, `00AD`, then `Enter` |
+| Line break         | `U+000A` | `↵`    | `Shift + Enter`  | `Shift + Enter` | `Shift + Enter`                          |
 
-The insert buttons include non-breaking space and soft hyphen. They do not
-include a regular space because that is already available from the keyboard.
-They do not include line break because Draftail already provides line-break
-insertion.
+Character-entry shortcuts may depend on the operating system, keyboard layout,
+numeric keypad, and configured input method.
 
-The visibility feature also shows structural editor markers for block ends,
-headings, and document end. Those markers are visual aids only and are not
-insertable characters.
+The visibility feature also displays the following structural markers:
+
+| Item         | Marker       | Input          |
+| ------------ | ------------ |----------------|
+| Paragraph    | `¶`          | `Enter`        |
+| Heading      | `H1` to `H6` | `#` to `######` |
+| Document end | `#`          | n/a            |
+
+The document-end marker makes empty trailing paragraphs visible. Editors will
+usually want to remove these paragraphs.
+
+A soft hyphen is also called a syllable hyphen or discretionary hyphen.
+A line break is also called a soft return.
 
 ## Behavior
 
@@ -106,58 +111,72 @@ The show/hide state is stored in browser `localStorage`, so the editor remembers
 the user's last visibility preference. The state is shared across all Draftail
 rich text editors on the page.
 
-Use `^ + ⌥ + I` on macOS or `Ctrl + Alt + I` on Windows and Linux to
-toggle hidden-character visibility.
+The insert buttons insert a character at the current Draftail selection. If text
+is selected, the selected text is replaced. This matches normal text input
+behavior.
 
-The insert buttons insert at the current Draftail selection. If text is
-selected, the selected text is replaced, matching normal typing behavior.
+Only non-breaking spaces and soft hyphens have insert buttons. Draftail already
+provides a line break button. Paragraphs and headings use the standard Draftail
+controls and keyboard input.
 
-Native keyboard input also works where the platform supports it:
-non-breaking space is `Option + Space` on macOS, `Alt + 0160` on Windows, and
-`Ctrl + Shift + U, 00A0` on Linux; soft hyphen is `Alt + 0173` on Windows and
-`Ctrl + Shift + U, 00AD` on Linux.
+Toolbar button tooltips show the platform shortcut when one is available.
 
-Hidden-character markers are visual only. They are rendered as CSS decoration.
-Draftail keeps its native cursor behavior and browser spellcheck still sees
-words containing soft hyphens as single words.
+Hidden-character markers are visual only and are rendered as CSS decorations.
+They do not change the stored rich text or its rendered HTML.
 
-The soft hyphen character is zero width, but the soft hyphen icon does occupy
-space. The cursor position around the soft hyphen feels counterintuitive.
+Because the markers are rendered with CSS, Draftail retains its native cursor
+behavior. Browser spellcheck also continues to treat words containing soft
+hyphens as single words.
+
+The soft hyphen character itself has zero width, but its visible marker occupies
+space. As a result, cursor movement around a displayed soft hyphen can feel
+counterintuitive. This is a known limitation.
 
 ## Development and testing
 
-Install the package with test dependencies:
+Install the package with its test dependencies:
 
 ```shell
-uv venv
-source .venv/bin/activate
-uv pip install -e ".[test]"
+make install
 ```
 
-Run the automated tests:
+Activate the virtual environment:
 
 ```shell
-pytest
+source .venv/bin/activate
+```
+
+Run all checks and tests:
+
+```shell
+make test
+```
+
+Fix code style:
+
+```shell
+make fix-codestyle
 ```
 
 ## Demo project
 
-The `tests/test_project` Django/Wagtail project can be used for manual testing and demonstration.
+Use the `tests/test_project` Django/Wagtail project for manual testing and
+demonstrations:
 
 ```shell
 python tests/test_project/manage.py migrate
 python tests/test_project/manage.py createsuperuser
-python tests/test_project/manage.py runserver
 python tests/test_project/manage.py create_content
+python tests/test_project/manage.py runserver
 ```
 
-The homepage illustrates the glyphs and features.
+The homepage illustrates the supported markers and rich text features.
 
-## Releasing
+## Release
 
 Releases are published to PyPI by GitHub Actions when a `v*` tag is pushed.
 
-Update the project version in `pyproject.toml`.
+Update the project version in `pyproject.toml`:
 
 ```shell
 git add pyproject.toml
@@ -167,9 +186,12 @@ git push
 git push origin v0.1.1
 ```
 
-The Git tag should be the package version with a `v` prefix. For example, `version = "0.1.1"` in `pyproject.toml` is released with tag `v0.1.1`.
+The Git tag must match the package version with a `v` prefix. For example,
+`version = "0.1.1"` uses the tag `v0.1.1`.
 
-You can also create the GitHub Release in the web UI after pushing the tag. If you create the tag through the GitHub Release UI, make sure the version bump commit is already on the target branch.
+You can create a GitHub Release in the web interface after pushing the tag. If
+you create the tag through the GitHub Release interface, make sure the version
+bump commit is already present on the target branch.
 
 To build and inspect the package locally:
 
@@ -177,9 +199,10 @@ To build and inspect the package locally:
 uv build
 ```
 
-This writes the release artifacts to `dist/`. Before publishing, inspect the generated files and verify the package data is included:
+This writes the release artifacts to `dist/`. Before publishing, inspect the
+generated files and verify that the package data is included:
 
 ```shell
-tar -tf dist/wagtail_exact_crop-*.tar.gz
-unzip -l dist/wagtail_exact_crop-*.whl
+tar -tf dist/wagtail_show_hidden_characters-*.tar.gz
+unzip -l dist/wagtail_show_hidden_characters-*.whl
 ```
