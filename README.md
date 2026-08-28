@@ -134,7 +134,7 @@ counterintuitive. This is a known limitation.
 
 ## Development and testing
 
-Install the package with its test dependencies:
+Install the package with its Python and JavaScript test dependencies:
 
 ```shell
 make install
