@@ -97,7 +97,7 @@ max-complexity = 6
 ]
 
 [project.urls]
-Documentation = "https://github.com/allcaps/wagtailshow-hidden-characters/"
+Documentation = "https://github.com/allcaps/wagtail-show-hidden-characters/"
 Changelog = "https://github.com/allcaps/wagtail-show-hidden-characters/blob/main/CHANGELOG.md"
 Issues = "https://github.com/allcaps/wagtail-show-hidden-characters/issues"
 Source = "https://github.com/allcaps/wagtail-show-hidden-characters"

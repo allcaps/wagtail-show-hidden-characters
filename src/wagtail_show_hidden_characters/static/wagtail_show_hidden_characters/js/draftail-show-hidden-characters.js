@@ -158,7 +158,6 @@
     const label = enabled ? "Hide hidden characters" : "Show hidden characters";
     const title = getShortcutTitle(label, TOGGLE_SHORTCUTS);
     const icon = enabled ? "no-view" : "view";
-    const ToolbarButton = draftail.ToolbarButton;
 
     React.useEffect(() => {
       const onChange = (event) => {
@@ -174,16 +173,6 @@
     const onClick = () => {
       setEnabled(!isEnabled());
     };
-
-    if (ToolbarButton) {
-      return React.createElement(ToolbarButton, {
-        name: "show-hidden-characters-toggle",
-        active: enabled,
-        icon,
-        title,
-        onClick,
-      });
-    }
 
     return React.createElement(
       "button",
@@ -209,7 +198,6 @@
   const createInsertControl = (character, label, shortcuts) => {
     const InsertControl = (props) => {
       const DraftJS = window.DraftJS;
-      const ToolbarButton = draftail.ToolbarButton;
       const title = getShortcutTitle(label, shortcuts);
 
       const insertCharacter = () => {
@@ -238,15 +226,6 @@
         );
         window.setTimeout(updateDocumentEndMarkers, 0);
       };
-
-      if (ToolbarButton) {
-        return React.createElement(ToolbarButton, {
-          name: label.toLowerCase().replaceAll(" ", "-"),
-          label: MARKERS[character].marker,
-          title,
-          onClick: insertCharacter,
-        });
-      }
 
       return React.createElement(
         "button",
